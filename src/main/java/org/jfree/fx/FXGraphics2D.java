@@ -85,7 +85,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.embed.swing.SwingNode;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -228,7 +227,6 @@ public class FXGraphics2D extends Graphics2D {
         this.hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, 
                 RenderingHints.VALUE_ANTIALIAS_DEFAULT);
         this.hints.put(FXHints.KEY_USE_FX_FONT_METRICS, true);
-
     }
     
     /**
@@ -427,14 +425,6 @@ public class FXGraphics2D extends Graphics2D {
         }
         applyColor(c);
     }
-
-    public void setColor(javafx.scene.paint.Color c) {
-        Color awtColor = javaFXColorToAWT(c);
-        if (c == null || awtColor.equals(this.color)) { // todo implements equals
-            return;
-        }
-        applyColor(c);
-    }
     
     private void applyColor(Color c) {
         this.color = c;
@@ -442,14 +432,6 @@ public class FXGraphics2D extends Graphics2D {
         javafx.scene.paint.Color fxcolor = awtColorToJavaFX(c);
         this.gc.setFill(fxcolor);
         this.gc.setStroke(fxcolor);
-    }
-
-    private void applyColor(javafx.scene.paint.Color c) {
-        Color awtColor = javaFXColorToAWT(c);
-        this.color = awtColor;
-        this.paint = awtColor;
-        this.gc.setFill(c);
-        this.gc.setStroke(c);
     }
 
     /**
@@ -462,11 +444,6 @@ public class FXGraphics2D extends Graphics2D {
     private javafx.scene.paint.Color awtColorToJavaFX(Color c) {
         return javafx.scene.paint.Color.rgb(c.getRed(), c.getGreen(), 
                 c.getBlue(), c.getAlpha() / 255.0);
-    }
-
-    private Color javaFXColorToAWT(javafx.scene.paint.Color c) {
-        return new Color((float)c.getRed(), (float)c.getGreen(),
-                (float)c.getBlue(), (float)c.getOpacity() * 255.0f);
     }
     
     /**
