@@ -37,25 +37,9 @@
 
 package org.jfree.fx;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
+import java.awt.*;
 import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.Image;
-import java.awt.LinearGradientPaint;
-import java.awt.MultipleGradientPaint;
 import java.awt.Paint;
-import java.awt.RadialGradientPaint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.font.TextLayout;
@@ -88,10 +72,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
+import javafx.scene.paint.*;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
@@ -352,6 +333,16 @@ public class FXGraphics2D extends Graphics2D {
                     p2.getX(), p2.getY(), false, CycleMethod.NO_CYCLE, stops);
             this.gc.setStroke(lg);
             this.gc.setFill(lg);
+        } else if (paint instanceof TexturePaint) {
+            TexturePaint tp = (TexturePaint) paint;
+            BufferedImage bufferedImage = tp.getImage();
+            Rectangle2D rect2d = tp.getAnchorRect();
+
+            javafx.scene.image.Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            ImagePattern ip = new ImagePattern(image, rect2d.getX(), rect2d.getY(),
+                                               rect2d.getWidth(), rect2d.getHeight(), false);
+            gc.setStroke(ip);
+            gc.setFill(ip);
         } else if (paint instanceof MultipleGradientPaint) {
             MultipleGradientPaint mgp = (MultipleGradientPaint) paint;
             Color[] colors = mgp.getColors();
