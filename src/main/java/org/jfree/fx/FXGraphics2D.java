@@ -299,7 +299,7 @@ public class FXGraphics2D extends Graphics2D {
      * accordance with the JDK specification).
      * <br><br>
      * Note that this implementation will map {@link Color}, 
-     * {@link GradientPaint}, {@link LinearGradientPaint} and 
+     * {@link GradientPaint}, {@link LinearGradientPaint}, {@link TexturePaint} and
      * {@link RadialGradientPaint} to JavaFX equivalents, other paint 
      * implementations are not handled.
      * 
