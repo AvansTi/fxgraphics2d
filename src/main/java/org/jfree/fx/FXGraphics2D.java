@@ -86,7 +86,7 @@ import javafx.scene.text.FontWeight;
  * JFreeChart (<a href="http://www.jfree.org/jfreechart/">http://www.jfree.org/jfreechart/</a>).
  */
 public class FXGraphics2D extends Graphics2D {
-    
+
     /** The graphics context for the JavaFX canvas. */
     private final GraphicsContext gc;
     
@@ -338,7 +338,7 @@ public class FXGraphics2D extends Graphics2D {
             BufferedImage bufferedImage = tp.getImage();
             Rectangle2D rect2d = tp.getAnchorRect();
 
-            javafx.scene.image.Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            javafx.scene.image.Image image = FXImageCache.getImage(bufferedImage);
             ImagePattern ip = new ImagePattern(image, rect2d.getX(), rect2d.getY(),
                                                rect2d.getWidth(), rect2d.getHeight(), false);
             gc.setStroke(ip);
@@ -1635,8 +1635,7 @@ public class FXGraphics2D extends Graphics2D {
             g2.drawImage(img, 0, 0, w, h, null);
             g2.dispose();
         }
-        javafx.scene.image.WritableImage fxImage = SwingFXUtils.toFXImage(
-                buffered, null);
+        javafx.scene.image.WritableImage fxImage = FXImageCache.getImage(buffered);
         this.gc.drawImage(fxImage, x, y, w, h);
         return true;
     }
