@@ -363,10 +363,20 @@ public class FXGraphics2D extends Graphics2D {
                         focus.getX() - center.getX());
                 }
                 double radius = rgp.getRadius();
+
+                focusDistance /= radius;
+
+                CycleMethod cycleMethod = CycleMethod.NO_CYCLE;
+
+                if(rgp.getCycleMethod() == MultipleGradientPaint.CycleMethod.REPEAT)
+                    cycleMethod = CycleMethod.REPEAT;
+                else if(rgp.getCycleMethod() == MultipleGradientPaint.CycleMethod.REFLECT)
+                    cycleMethod = CycleMethod.REFLECT;
+
                 RadialGradient rg = new RadialGradient(
                         Math.toDegrees(focusAngle), focusDistance, 
-                        center.getX(), center.getY(), radius, false, 
-                        CycleMethod.NO_CYCLE, stops);
+                        center.getX(), center.getY(), radius, false,
+                        cycleMethod, stops);
                 this.gc.setStroke(rg);
                 this.gc.setFill(rg);
             } else if (paint instanceof LinearGradientPaint) {

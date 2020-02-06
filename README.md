@@ -1,9 +1,7 @@
 FXGraphics2D
 ============
 
-Version 1.7, 5 July 2018.
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jfree/fxgraphics2d/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jfree/fxgraphics2d)
+Version 1.91, Febuary 6th 2020.
 
 Overview
 --------
@@ -104,6 +102,9 @@ If you have feedback about the `FXGraphics2D` library, please visit the forum at
 
 History
 -------
+
+##### 56-Feb-2020: Version 1.10
+- Improved Radialgradientpaint compatibility
 
 ##### 5-Jul-2018 : Version 1.7
 - fixed bug #6 where color, stroke and font attributes are changed after calling `setClip()` twice.
