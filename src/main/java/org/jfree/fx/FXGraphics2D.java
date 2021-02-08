@@ -74,6 +74,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.*;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.FillRule;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.text.FontPosture;
@@ -850,6 +851,15 @@ public class FXGraphics2D extends Graphics2D {
                     a.getAngleStart(), a.getAngleExtent(), 
                     intToArcType(a.getArcType()));
         } else {
+            if(s instanceof Path2D)
+            {
+                Path2D p = (Path2D)s;
+                if(p.getWindingRule() == Path2D.WIND_EVEN_ODD)
+                    this.gc.setFillRule(FillRule.EVEN_ODD);
+                if(p.getWindingRule() == Path2D.WIND_NON_ZERO)
+                    this.gc.setFillRule(FillRule.NON_ZERO);
+            }
+
             shapeToPath(s);
             this.gc.fill();
         }
